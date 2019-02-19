@@ -1,0 +1,38 @@
+#!/bin/bash
+
+branch=""
+count=0
+while read -r old new name
+do
+    if [[ ! $new =~ ^[0]+$ ]]; then
+        branch=$name
+        (( count+=1 ))
+    fi
+done
+
+#silence silly warnings
+old=$old
+
+if [ $count -eq 0 ]; then
+    exit 0
+fi
+
+if [ -z "$branch" ]; then
+    echo "Error: branch not found"
+    exit 1
+fi
+
+if [ ! -d "$BUILD_DIR" ]; then
+    mkdir "$BUILD_DIR"
+fi
+
+
+git --work-tree="$BUILD_DIR" --git-dir="$PWD" checkout -f "$branch"
+
+cd "$BUILD_DIR" || (echo "Error: $BUILD_DIR disappeared" && exit 1)
+
+$BUILD_COMMAND
+
+cd - || echo "Seriously?!"
+
+rm "$PWD/.context-switch--building"
