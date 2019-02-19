@@ -29,3 +29,4 @@ And to stifle the warnings about deleting a branch you're on you'd also have to 
 ```
 git config receive.denyDeleteCurrent ignore
 ```
+Also note that the pre-receive hook will create a lock file to not allow starting multiple builds. If you cancel your build before completion you need to remove `dest/.context-switch--building` before being able to build again.
