@@ -35,4 +35,4 @@ $BUILD_COMMAND
 
 cd - || echo "Seriously?!"
 
-rm "$PWD/.context-switch--building"
+rm "$PWD/.context-switch-building"
