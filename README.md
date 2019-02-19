@@ -16,6 +16,10 @@ Git hooks for starting builds locally by doing git push
    [alias]
        build = "! BUILD_DIR=\"/path/to/src/build/\" BUILD_COMMAND=\"./build\" git push -f dest $2"
    ```
+5. Then all you do is:
+   ```
+   git build branch-name
+   ```
    
 You're going to notice that to actually trigger that build you *need* the push to go through. This means that you have to make sure that the branch isn't there before you push it. This you do as usual with:
 ```
